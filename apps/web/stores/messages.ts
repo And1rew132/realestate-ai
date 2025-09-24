@@ -228,7 +228,11 @@ export const useMessagesStore = defineStore('messages', () => {
   }
 
   const unsubscribeFromMessages = (threadId: string) => {
-    supabase.removeChannel(`messages:${threadId}`)
+    const channelName = `messages:${threadId}`
+    const channel = supabase.getChannels().find(c => c.topic === channelName)
+    if (channel) {
+      supabase.removeChannel(channel)
+    }
   }
 
   return {

@@ -163,7 +163,7 @@
                   Accept
                 </button>
                 <button
-                  @click="showCounterModal(offer)"
+                  @click="showCounterModal(offer as Offer)"
                   class="btn btn-secondary text-sm"
                 >
                   Counter

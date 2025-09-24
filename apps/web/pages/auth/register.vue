@@ -219,7 +219,7 @@ const handleRegister = async () => {
     const { error: signUpError } = await authStore.signUp(
       form.email,
       form.password,
-      form.role,
+      form.role as 'landlord' | 'tenant',
       {
         first_name: form.first_name,
         last_name: form.last_name,

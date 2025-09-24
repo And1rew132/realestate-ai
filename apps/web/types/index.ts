@@ -17,7 +17,7 @@ export interface Property {
   landlord_id: string
   title: string
   description?: string
-  property_type: 'apartment' | 'house' | 'condo' | 'townhouse' | 'studio'
+  property_type: 'apartment' | 'house' | 'condo' | 'townhouse' | 'studio' | ''
   address: string
   city: string
   state: string
@@ -26,8 +26,8 @@ export interface Property {
   bedrooms?: number
   bathrooms?: number
   square_feet?: number
-  amenities: string[]
-  photos: string[]
+  amenities: string[] | readonly string[]
+  photos: string[] | readonly string[]
   created_at: string
   updated_at: string
 }

@@ -218,7 +218,7 @@
         </div>
       </div>
 
-      <div v-if="form.amenities.length > 0" class="flex flex-wrap gap-2">
+      <div v-if="form.amenities && form.amenities.length > 0" class="flex flex-wrap gap-2">
         <span
           v-for="(amenity, index) in form.amenities"
           :key="index"
@@ -252,7 +252,7 @@
         />
         <button
           type="button"
-          @click="$refs.fileInput?.click()"
+          @click="(($refs.fileInput as HTMLInputElement)?.click())"
           class="btn btn-secondary"
           :disabled="loading || uploading"
         >
@@ -264,7 +264,7 @@
         </p>
       </div>
 
-      <div v-if="form.photos.length > 0" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div v-if="form.photos && form.photos.length > 0" class="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div
           v-for="(photo, index) in form.photos"
           :key="index"
@@ -356,7 +356,7 @@ const newAmenity = ref('')
 const form = reactive<Partial<Property>>({
   title: props.property?.title || '',
   description: props.property?.description || '',
-  property_type: props.property?.property_type || '',
+  property_type: (props.property?.property_type as 'apartment' | 'house' | 'condo' | 'townhouse' | 'studio' | undefined) || undefined,
   address: props.property?.address || '',
   city: props.property?.city || '',
   state: props.property?.state || '',
@@ -387,14 +387,16 @@ const propertySchema = z.object({
 
 const addAmenity = () => {
   const amenity = newAmenity.value.trim()
-  if (amenity && !form.amenities.includes(amenity)) {
-    form.amenities.push(amenity)
+  if (amenity && form.amenities && !form.amenities.includes(amenity)) {
+    ;(form.amenities as string[]).push(amenity)
     newAmenity.value = ''
   }
 }
 
 const removeAmenity = (index: number) => {
-  form.amenities.splice(index, 1)
+  if (form.amenities) {
+    ;(form.amenities as string[]).splice(index, 1)
+  }
 }
 
 const handleFileUpload = async (event: Event) => {
@@ -402,7 +404,7 @@ const handleFileUpload = async (event: Event) => {
   if (!files || files.length === 0) return
 
   // Validate file count
-  if (form.photos.length + files.length > 10) {
+  if (form.photos && form.photos.length + files.length > 10) {
     error.value = 'Maximum 10 photos allowed'
     return
   }
@@ -434,7 +436,9 @@ const handleFileUpload = async (event: Event) => {
     })
 
     const photoUrls = await Promise.all(promises)
-    form.photos.push(...photoUrls)
+    if (form.photos) {
+      ;(form.photos as string[]).push(...photoUrls)
+    }
   } catch (err: any) {
     error.value = err.message || 'Error uploading photos'
   } finally {
@@ -445,7 +449,9 @@ const handleFileUpload = async (event: Event) => {
 }
 
 const removePhoto = (index: number) => {
-  form.photos.splice(index, 1)
+  if (form.photos) {
+    ;(form.photos as string[]).splice(index, 1)
+  }
 }
 
 const handleSubmit = async () => {

@@ -406,7 +406,7 @@ onMounted(async () => {
     // Pre-fill form with listing data
     if (currentListing.value) {
       form.offer_price = currentListing.value.price
-      form.deposit_amount = currentListing.value.deposit
+      form.deposit_amount = currentListing.value.deposit || null
     }
   }
 })
