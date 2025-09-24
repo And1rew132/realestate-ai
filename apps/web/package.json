@@ -1,0 +1,41 @@
+{
+  "name": "web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "e2e": "playwright test",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "typecheck": "nuxt typecheck"
+  },
+  "devDependencies": {
+    "@headlessui/vue": "^1.7.16",
+    "@heroicons/vue": "^2.0.18",
+    "@nuxt/devtools": "latest",
+    "@nuxt/eslint-config": "^0.2.0",
+    "@nuxt/test-utils": "^3.9.0",
+    "@nuxtjs/tailwindcss": "^6.10.1",
+    "@pinia/nuxt": "^0.5.1",
+    "@playwright/test": "^1.40.1",
+    "@supabase/supabase-js": "^2.38.5",
+    "@types/stripe": "^8.0.417",
+    "@vueuse/nuxt": "^10.7.0",
+    "eslint": "^8.56.0",
+    "nuxt": "^3.9.0",
+    "pinia": "^2.1.7",
+    "stripe": "^14.12.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.1.0",
+    "vue": "^3.4.0",
+    "vue-router": "^4.2.5",
+    "vue-tsc": "^2.2.12",
+    "zod": "^3.22.4"
+  }
+}

@@ -1,169 +1,197 @@
-🏠 Real Estate Platform (Nuxt 3 + Supabase + Stripe)
+# 🏠 Real Estate Platform (Nuxt 3 + Supabase + Stripe)
 
 A modern SaaS application for managing property rentals and sales.
 Built with Nuxt 3 + Vue 3 (TypeScript), Supabase, Pinia, and Stripe, the platform streamlines the rental process for landlords and tenants in one place.
 
-✨ Features
-👩‍💼 Landlord
+## ✨ Features
 
-Add and manage properties with photos, amenities, and location.
+### 👩‍💼 Landlord
 
-Create listings (rent/sale), set pricing, and publish.
+- Add and manage properties with photos, amenities, and location.
+- Create listings (rent/sale), set pricing, and publish.
+- Chat with tenants directly in-app.
+- Review, accept, decline, or counter offers.
+- Monitor KPIs: views, inquiries, offers, occupancy, rent income.
+- Post and track monthly rent (integrated with Stripe).
 
-Chat with tenants directly in-app.
+### 🧑 Tenant
 
-Review, accept, decline, or counter offers.
+- Browse and filter property listings (location, price, amenities, availability).
+- View listing details with photos and descriptions.
+- Chat with landlords about properties.
+- Submit offers with rental price, move-in date, and deposit.
+- Negotiate via counteroffers and finalize agreements.
+- Pay rent online with Stripe or record offline payments.
 
-Monitor KPIs: views, inquiries, offers, occupancy, rent income.
+## 🛠 Tech Stack
 
-Post and track monthly rent (integrated with Stripe).
+**Frontend:** Nuxt 3, Vue 3 (Composition API + `<script setup>`), TypeScript
 
-🧑 Tenant
+**UI:** TailwindCSS, Headless UI (custom components where needed)
 
-Browse and filter property listings (location, price, amenities, availability).
+**State Management:** Pinia
 
-View listing details with photos and descriptions.
+**Backend & Auth:** Supabase (Postgres, Auth, Storage, Realtime)
 
-Chat with landlords about properties.
+**Payments:** Stripe Checkout + Webhooks
 
-Submit offers with rental price, move-in date, and deposit.
+**Validation:** Zod
 
-Negotiate via counteroffers and finalize agreements.
+**Testing:** Vitest (unit), Playwright (end-to-end)
 
-Pay rent online with Stripe or record offline payments.
+**CI/CD:** GitHub Actions (lint, test, build, deploy preview)
 
-🛠 Tech Stack
+## 🚀 Getting Started
 
-Frontend: Nuxt 3, Vue 3 (Composition API + <script setup>), TypeScript
+### Prerequisites
 
-UI: TailwindCSS, Headless UI (custom components where needed)
+- Node.js v18+
+- pnpm (recommended)
+- Supabase project (free tier works)
+- Stripe account (test mode)
 
-State Management: Pinia
+### Setup
 
-Backend & Auth: Supabase (Postgres, Auth, Storage, Realtime)
-
-Payments: Stripe Checkout + Webhooks
-
-Validation: Zod
-
-Testing: Vitest (unit), Playwright (end-to-end)
-
-CI/CD: GitHub Actions (lint, test, build, deploy preview)
-
-📂 Project Structure
-apps/web/
-  app.vue
-  nuxt.config.ts
-  middleware/auth.global.ts
-  pages/
-    index.vue
-    listings/index.vue
-    listings/[id].vue
-    offers/index.vue
-    offers/[id].vue
-    messages/index.vue
-    dashboard/index.vue
-    landlord/{properties.vue,properties-new.vue,listings.vue,tenancies.vue,payments.vue}
-    settings/index.vue
-  components/
-    realestate/PropertyForm.vue
-    realestate/ListingForm.vue
-    realestate/PropertyCard.vue
-    offers/OfferComposer.vue
-    chat/ChatThread.vue
-    payments/PaymentsTable.vue
-  stores/
-    auth.ts
-    listings.ts
-    offers.ts
-    messages.ts
-    properties.ts
-    tenancies.ts
-  server/api/
-    listings.get.ts
-    listings.post.ts
-    offers.post.ts
-    payments/checkout.post.ts
-    webhooks/stripe.post.ts
-packages/db/
-  schema.sql
-  rls.sql
-
-🗄 Database Schema (Supabase)
-
-users → role-based auth (landlord, tenant, admin)
-
-properties → property details (address, photos, amenities)
-
-listings → rent/sale data (price, availability, terms)
-
-offers → tenant offers + counteroffers
-
-tenancies → accepted agreements + contract links
-
-messages → real-time landlord ↔ tenant chat
-
-payments → rent cycle, receipts, Stripe integration
-
-🚀 Getting Started
-Prerequisites
-
-Node.js v18+
-
-pnpm (recommended)
-
-Supabase project (free tier works)
-
-Stripe account (test mode)
-
-Setup
+```bash
 # Clone repo
-git clone https://github.com/your-org/realestate-app.git
-cd realestate-app
+git clone https://github.com/And1rew132/realestate-ai.git
+cd realestate-ai
 
 # Install dependencies
 pnpm install
 
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your Supabase and Stripe credentials
+```
+
+### Environment Variables
+
+Copy `.env.example` → `.env` and fill in values:
+
+```bash
+# Supabase Configuration
+SUPABASE_URL=your_supabase_project_url
+SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+
+# Stripe Configuration
+STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key
+STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret
+PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_publishable_key
+
+# Application Configuration
+PUBLIC_APP_URL=http://localhost:3000
+
+# Deployment Configuration (for subdirectory deployments)
+NUXT_APP_BASE_URL=/
+NUXT_APP_BUILD_ASSETS_DIR=/_nuxt/
+```
+
+### Development
+
+```bash
 # Run dev server
 pnpm dev
 
-Environment Variables
+# Run linting
+pnpm lint
 
-Copy .env.example → .env and fill in values:
+# Run type checking
+pnpm typecheck
 
-SUPABASE_URL=
-SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
-STRIPE_SECRET_KEY=
-STRIPE_WEBHOOK_SECRET=
-PUBLIC_STRIPE_PUBLISHABLE_KEY=
-PUBLIC_APP_URL=http://localhost:3000
-
-🧪 Testing
 # Run unit tests
 pnpm test
 
-# Run end-to-end tests
+# Run end-to-end tests (requires running dev server)
 pnpm e2e
 
-⚙️ CI/CD
+# Build for production
+pnpm build
+```
 
-GitHub Actions: runs lint, typecheck, tests, and builds on PRs.
+## 🧪 Testing
 
-Deploy Previews: automatically deployed to Vercel/Netlify.
+The project includes comprehensive testing:
 
-📅 Roadmap
+- **Unit Tests** with Vitest
+- **E2E Tests** with Playwright
+- **TypeScript checking**
+- **ESLint code quality**
 
- MVP: listings, offers, messaging, rent payments.
+```bash
+# Run all tests
+pnpm test      # Unit tests
+pnpm e2e       # End-to-end tests
+pnpm lint      # Code linting
+pnpm typecheck # Type checking
+```
 
- E-signature integration for tenancy agreements.
+## 🚢 Deployment
 
- Maintenance tickets for tenants.
+### Base URL Configuration
 
- Landlord payout reports and invoices.
+For deployments in subdirectories (like GitHub Pages), configure the base URL:
 
- Multilingual support (English + Maltese).
+```bash
+# .env
+NUXT_APP_BASE_URL=/your-subdirectory/
+NUXT_APP_BUILD_ASSETS_DIR=/your-subdirectory/_nuxt/
+```
 
-📜 License
+### Build & Deploy
 
-MIT
+```bash
+# Build for production
+pnpm build
+
+# The built application will be in apps/web/.output/
+```
+
+Popular deployment options:
+- **Vercel**: `npx vercel`
+- **Netlify**: Deploy the `.output/` directory
+- **Node.js**: `node apps/web/.output/server/index.mjs`
+
+## ⚙️ CI/CD
+
+GitHub Actions workflow includes:
+- ✅ Linting and type checking
+- ✅ Unit and E2E tests
+- ✅ Production builds
+- ✅ Preview deployments for PRs
+- ✅ Automatic production deployments
+
+## 📂 Project Structure
+
+```
+apps/web/                    # Main Nuxt application
+├── components/             # Reusable Vue components
+├── pages/                 # Route-based pages
+├── stores/                # Pinia state management
+├── middleware/            # Route protection
+├── types/                 # TypeScript definitions
+└── tests/                 # Unit and E2E tests
+
+packages/db/               # Database schema and policies
+├── schema.sql            # Complete database schema
+└── rls.sql              # Row Level Security policies
+```
+
+## 🗄 Database Schema (Supabase)
+
+- **users** → role-based auth (landlord, tenant, admin)
+- **properties** → property details (address, photos, amenities)
+- **listings** → rent/sale data (price, availability, terms)
+- **offers** → tenant offers + counteroffers
+- **tenancies** → accepted agreements + contract links
+- **messages** → real-time landlord ↔ tenant chat
+- **payments** → rent cycle, receipts, Stripe integration
+
+## 📜 License
+
+MIT License - see the LICENSE file for details.
+
+---
+
+**Built with ❤️ using Nuxt 3, Supabase, and modern web technologies.**
