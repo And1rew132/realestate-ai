@@ -1,0 +1,25 @@
+{
+  "name": "realestate-saas",
+  "version": "1.0.0",
+  "description": "A modern SaaS application for managing property rentals and sales",
+  "scripts": {
+    "dev": "pnpm -F web dev",
+    "build": "pnpm -F web build",
+    "preview": "pnpm -F web preview",
+    "test": "pnpm -F web test",
+    "e2e": "pnpm -F web e2e",
+    "lint": "pnpm -F web lint",
+    "typecheck": "pnpm -F web typecheck"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "packageManager": "pnpm@8.15.0",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5"
+  }
+}
